@@ -1,0 +1,36 @@
+{
+  "name": "movies-api",
+  "version": "1.0.0",
+  "description": "REST API platzi-video",
+  "main": "index.js",
+  "author": "Ruben Padilla <rubbenpad2@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "DEBUG=app:* nodemon index",
+    "start": "MODE_ENV=production node index"
+  },
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "eslint": "^6.7.1",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.1",
+    "husky": "^3.1.0",
+    "lint-staged": "^9.5.0",
+    "nodemon": "^2.0.1",
+    "prettier": "^1.19.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.js": [
+      "eslint --fix",
+      "git add"
+    ]
+  }
+}
