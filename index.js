@@ -20,6 +20,7 @@ app.use(logErrors);
 app.use(wrapErrors);
 app.use(errorHandler);
 
+const debug = require('debug')('app:server');
 app.listen(config.port, () => {
-  console.log(`App linstening on http://localhost:${config.port}`);
+  debug(`App linstening on http://localhost:${config.port}`);
 });
