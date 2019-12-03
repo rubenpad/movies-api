@@ -9,19 +9,19 @@
     "test": "mocha --exit",
     "cover": "nyc yarn test",
     "report": "nyc report --reporter=html && xdg-open coverage/index.html",
-    "dev": "DEBUG=express:*,app:* nodemon index",
-    "debug": "DEBUG:express:*,app:* yarn start",
-    "inspect": "DEBUG:express:*,app:* nodemon --inspect index",
+    "dev": "DEBUG=app:* nodemon index",
     "start": "NODE_ENV=production node index"
   },
   "dependencies": {
     "@hapi/boom": "^8.0.1",
     "@hapi/joi": "^16.1.8",
+    "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "mongodb": "^3.3.5"
   },
   "devDependencies": {
+    "debug": "^4.1.1",
     "eslint": "^6.7.1",
     "eslint-config-prettier": "^6.7.0",
     "eslint-plugin-prettier": "^3.1.1",

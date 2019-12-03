@@ -1,5 +1,6 @@
 const boom = require('@hapi/boom');
 const { config } = require('../../config/index');
+const debug = require('debug')('app:error');
 
 function validateEnvironment(error, stack) {
   if (config.dev) {
@@ -10,7 +11,7 @@ function validateEnvironment(error, stack) {
 }
 
 function logErrors(err, req, res, next) {
-  console.log(err);
+  debug(err);
   next(err);
 }
 
@@ -22,7 +23,9 @@ function wrapErrors(err, req, res, next) {
 }
 
 function errorHandler(err, req, res, next) {// eslint-disable-line
-  const { output: { statusCode, payload } } = err;
+  const {
+    output: { statusCode, payload }
+  } = err;
   res.status(statusCode);
   res.json(validateEnvironment(payload, err.stack));
 }
