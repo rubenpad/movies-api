@@ -1,4 +1,5 @@
 const express = require('express');
+const debug = require('debug')('app:server');
 const app = express();
 
 const { config } = require('./config/index');
@@ -24,7 +25,6 @@ app.use(logErrors);
 app.use(wrapErrors);
 app.use(errorHandler);
 
-const debug = require('debug')('app:server');
 app.listen(config.port, () => {
   debug(`App linstening on http://localhost:${config.port}`);
 });
