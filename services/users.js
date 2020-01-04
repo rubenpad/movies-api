@@ -7,14 +7,14 @@ class UsersService {
     this.mongoDB = new MongoLib();
   }
 
-  async getUsers({ email }) {
+  async getUser({ email }) {
     const [user] = await this.mongoDB.getAll(this.collection, { email });
     return user;
   }
 
   async createUser({ user }) {
     const { name, email, password } = user;
-    const hashedPassword = await bcrypt(password, 10);
+    const hashedPassword = await bcrypt.hash(password, 10);
 
     const createdUserId = await this.mongoDB.create(this.collection, {
       name,
