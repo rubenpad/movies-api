@@ -7,6 +7,7 @@
     "DB_USER": "@platzivideo-db-user",
     "DB_PASSWORD": "@platzivideo-db-password",
     "DB_HOST": "@platzivideo-db-host",
-    "DB_NAME": "@platzivideo-db-name"
+    "DB_NAME": "@platzivideo-db-name",
+    "AUTH_JWT_SECRET": "@platzivideo-db-auth-jwt-secret"
   }
 }
