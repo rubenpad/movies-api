@@ -30,7 +30,14 @@ function moviesApi(app) {
       const { tags } = req.query;
 
       try {
-        const movies = await moviesService.getMovies({ tags });
+        let movies = await moviesService.getMovies({ tags });
+        movies = movies.map((movie) => {
+          movie.id = movie._id;
+          delete movie._id;
+
+          return movie;
+        });
+
         res.status(200).json({
           data: movies,
           message: 'Movies listed'
@@ -52,6 +59,8 @@ function moviesApi(app) {
 
       try {
         const movie = await moviesService.getMovie({ movieId });
+        movie.id = movie._id;
+        delete movie._id;
         res.status(200).json({
           data: movie,
           message: 'Movie retrieved'
