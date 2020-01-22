@@ -71,13 +71,13 @@ function authApi(app) {
             error: 'Conflict',
             message: 'The email is already in use'
           });
+        } else {
+          const createdUserId = await usersService.createUser({ user });
+          res.status(201).json({
+            data: createdUserId,
+            message: 'user created'
+          });
         }
-
-        const createdUserId = await usersService.createUser({ user });
-        res.status(201).json({
-          data: createdUserId,
-          message: 'user created'
-        });
       } catch (error) {
         next(error);
       }
