@@ -1,6 +1,6 @@
-const Joi = require('@hapi/joi');
+const Joi = require('@hapi/joi')
 
-const userIdSchema = Joi.string().regex(/^[0-9a-fA-F]{24}$/);
+const userIdSchema = Joi.string().regex(/^[0-9a-fA-F]{24}$/)
 
 const createUserSchema = {
   name: Joi.string()
@@ -11,9 +11,9 @@ const createUserSchema = {
     .required(),
   password: Joi.string().required(),
   isAdmin: Joi.boolean
-};
+}
 
 module.exports = {
   userIdSchema,
   createUserSchema
-};
+}

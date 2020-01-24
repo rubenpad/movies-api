@@ -1,6 +1,6 @@
 function buidMessage(entity, action) {
-  if (action === 'list') return `${entity}s ${action}ed`;
-  return `${entity} ${action}d`;
+  if (action === 'list') return `${entity}s ${action}ed`
+  return `${entity} ${action}d`
 }
 
-module.exports = buidMessage;
+module.exports = buidMessage

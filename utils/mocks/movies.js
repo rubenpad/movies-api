@@ -139,27 +139,27 @@ const moviesMock = [
       'Drama'
     ]
   }
-];
+]
 
 function filteredMoviesMock(tag) {
-  return moviesMock.filter((movie) => movie.tags.includes(tag));
+  return moviesMock.filter((movie) => movie.tags.includes(tag))
 }
 
 class MoviesServiceMock {
   async getMovies() {
-    return Promise.resolve(moviesMock);
+    return Promise.resolve(moviesMock)
   }
 
   async createMovie() {
-    return Promise.resolve(moviesMock[0].id);
+    return Promise.resolve(moviesMock[0].id)
   }
 
   async updateMovie() {
-    return Promise.resolve(moviesMock[0].id);
+    return Promise.resolve(moviesMock[0].id)
   }
 
   async deleteMovie() {
-    return Promise.resolve(moviesMock[0].id);
+    return Promise.resolve(moviesMock[0].id)
   }
 }
 
@@ -167,4 +167,4 @@ module.exports = {
   moviesMock,
   filteredMoviesMock,
   MoviesServiceMock
-};
+}
