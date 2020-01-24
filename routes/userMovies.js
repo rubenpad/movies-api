@@ -5,7 +5,7 @@ const UserMoviesService = require('../services/userMovies')
 const validationHandler = require('../utils/middleware/validationHandler')
 const scopesValidationHandler = require('../utils/middleware/scopesValidationHandler')
 
-const { userMovieIdSchema } = require('../utils/schemas/userMovies')
+const { movieIdSchema } = require('../utils/schemas/movies')
 const { userIdSchema } = require('../utils/schemas/users')
 const { createUserMovieSchema } = require('../utils/schemas/userMovies')
 
@@ -50,15 +50,26 @@ function userMoviesApi(app) {
     validationHandler(createUserMovieSchema),
     async (req, res, next) => {
       const { body: userMovie } = req
+      const { userId, movieId } = userMovie
       try {
-        const createdUserMovieId = await userMoviesService.createUserMovie({
-          userMovie
-        })
+        const userMovies = await userMoviesService.getUserMovies({ userId })
+        const movieExists = userMovies.some(
+          (userMovie) => userMovie.movieId === movieId
+        )
+        if (movieExists) {
+          res
+            .status(200)
+            .json({ exist: true, message: 'The movie already was added' })
+        } else {
+          const createdUserMovieId = await userMoviesService.createUserMovie({
+            userMovie
+          })
 
-        res.status(201).json({
-          data: createdUserMovieId,
-          message: 'user movie created'
-        })
+          res.status(201).json({
+            data: createdUserMovieId,
+            message: 'user movie created'
+          })
+        }
       } catch (error) {
         next(error)
       }
@@ -66,12 +77,19 @@ function userMoviesApi(app) {
   )
 
   router.delete(
-    '/:userMovieId',
+    '/:movieId',
     passport.authenticate('jwt', { session: false }),
     scopesValidationHandler(['delete:user-movies']),
-    validationHandler({ userMovieId: userMovieIdSchema }, 'params'),
+    validationHandler({ movieId: movieIdSchema }, 'params'),
+    validationHandler({ userId: userIdSchema }, 'query'),
     async (req, res, next) => {
-      const { userMovieId } = req.params
+      const { userId } = req.query
+      const { movieId } = req.params
+
+      const userMovies = await userMoviesService.getUserMovies({ userId })
+      const userMovieId = userMovies.find(
+        (userMovie) => userMovie.movieId === movieId
+      )._id
 
       try {
         const deletedUserMovieId = await userMoviesService.deleteUserMovie({
